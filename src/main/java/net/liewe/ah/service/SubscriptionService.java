@@ -22,7 +22,7 @@ public class SubscriptionService {
     }
 
     public void createSubscription(Subscription subscription) {
-        System.out.println(subscription);
+        //check for existing sub with Optional
         Optional<Subscription> subscriptionOptional = subscriptionRepository
                 .findSubscriptionByEmailAndProductNameAndUnit(subscription.getEmail(), subscription.getProductName(), subscription.getUnit());
         if (subscriptionOptional.isPresent() ){

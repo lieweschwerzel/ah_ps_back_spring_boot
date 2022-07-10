@@ -18,13 +18,18 @@ public class SubscriptionController {
         this.subscriptionService = subscriptionService;
     }
 
+    //return all subscriptions from db in a List
     @GetMapping
     public List<Subscription> getProducts() {
         return subscriptionService.getSubscriptions();
     }
 
+    //POST create subscription
     @PostMapping
     public void createSubscription(@RequestBody Subscription subscription){
         subscriptionService.createSubscription(subscription);
     }
+
+    //DELETE subscription
+
 }
