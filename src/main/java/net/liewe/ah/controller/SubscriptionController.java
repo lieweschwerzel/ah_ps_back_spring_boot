@@ -3,6 +3,7 @@ package net.liewe.ah.controller;
 import net.liewe.ah.model.Subscription;
 import net.liewe.ah.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +27,16 @@ public class SubscriptionController {
 
     //POST create subscription
     @PostMapping
-    public void createSubscription(@RequestBody Subscription subscription){
+    public void createSubscription(@RequestBody Subscription subscription) {
         subscriptionService.createSubscription(subscription);
     }
 
     //DELETE subscription
+    @RequestMapping(value = "/{email}/{product_name}}/{unit}", method = RequestMethod.DELETE)
+    @Transactional
+    public void deleteSubscription(@PathVariable("email") String email, @PathVariable("product_name") String productName, @PathVariable("unit") String unit){
+    subscriptionService.deleteSubscription(email, productName, unit);
+    }
 
 }
+

@@ -30,4 +30,14 @@ public class SubscriptionService {
         }
         subscriptionRepository.save(subscription);
     }
+
+    public void deleteSubscription(String email, String productName, String unit) {
+        Optional<Subscription> delSubscriptionOptional = subscriptionRepository
+                .findSubscriptionByEmailAndProductNameAndUnit(email, productName, unit);
+        if (delSubscriptionOptional.isPresent()) {
+            subscriptionRepository.deleteByEmailAndProductNameAndUnit(email, productName, unit);
+        }
+        throw new IllegalStateException("Subscription doesnt exist");
+    }
+
 }
