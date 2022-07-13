@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository <Product, Long >      {
     //search for string, return 20 results max
-    List<Product> findTop20ByProductNameContaining(String searchitem);
+    List<Product> findAllByProductNameContaining(String searchitem);
 
 
 }

@@ -1,6 +1,5 @@
 package net.liewe.ah.controller;
 
-import net.liewe.ah.model.Product;
 import net.liewe.ah.model.Subscription;
 import net.liewe.ah.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
