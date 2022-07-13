@@ -21,7 +21,7 @@ public class ProductConfig {
 //                    "melk", 0.55, "1L", "discounted", "www.imageurl"
 //            Product melk = new Product(
 //            );
-            repository.saveAll(List.of(ahKomkommer));
+          //  repository.saveAll(List.of(ahKomkommer));
         };
     }
 }
