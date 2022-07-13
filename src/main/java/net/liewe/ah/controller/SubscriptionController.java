@@ -27,7 +27,7 @@ public class SubscriptionController {
     }
 
     //return all subscription from user (email)
-    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
     public List<Subscription> getUserSubscriptions(@PathVariable("email") String email) {
         return subscriptionService.getUserSubscriptions(email);
     }
