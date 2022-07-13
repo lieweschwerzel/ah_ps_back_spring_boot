@@ -15,7 +15,7 @@ public class SubscriptionConfig {
     CommandLineRunner commandLineRunner2(SubscriptionRepository repository){
         return args -> {
             Subscription sub_melk = new Subscription(
-                    "liewe@", "melk", 1.2, "1L", "discounted", "www.imageurl");
+                    "liewe@", "melk", 1.2, "1Li", "discounted", "www.imageurl");
             repository.saveAll(List.of(sub_melk));
         };
     }
