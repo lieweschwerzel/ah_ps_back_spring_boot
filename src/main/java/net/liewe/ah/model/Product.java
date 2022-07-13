@@ -16,10 +16,12 @@ public class Product {
             generator = "product_sequence"
     )
     private Long id;
+    @Column(name = "product_name")
     private String productName;
     private Double price;
     private String unit;
     private String discount;
+    @Column(name = "img_url")
     private String imgUrl;
 
     public Product() {

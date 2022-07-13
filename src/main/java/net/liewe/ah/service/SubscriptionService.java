@@ -21,6 +21,10 @@ public class SubscriptionService {
         return  subscriptionRepository.findAll();
     }
 
+    public List<Subscription> getUserSubscriptions(String email) {
+        return  subscriptionRepository.findByEmail(email);
+    }
+
     public void createSubscription(Subscription subscription) {
         //check for existing sub with Optional
         Optional<Subscription> subscriptionOptional = subscriptionRepository
@@ -31,13 +35,9 @@ public class SubscriptionService {
         subscriptionRepository.save(subscription);
     }
 
-    public void deleteSubscription(String email, String productName, String unit) {
-        Optional<Subscription> delSubscriptionOptional = subscriptionRepository
-                .findSubscriptionByEmailAndProductNameAndUnit(email, productName, unit);
-        if (delSubscriptionOptional.isPresent()) {
-            subscriptionRepository.deleteByEmailAndProductNameAndUnit(email, productName, unit);
-        }
-        throw new IllegalStateException("Subscription doesnt exist");
+    public void deleteSubscription(Long id) {
+        subscriptionRepository.deleteById(id);
     }
+
 
 }

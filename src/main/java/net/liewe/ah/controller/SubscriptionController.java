@@ -1,5 +1,6 @@
 package net.liewe.ah.controller;
 
+import net.liewe.ah.model.Product;
 import net.liewe.ah.model.Subscription;
 import net.liewe.ah.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path = "/subs")
 public class SubscriptionController {
@@ -25,17 +27,23 @@ public class SubscriptionController {
         return subscriptionService.getSubscriptions();
     }
 
+    //return all subscription from user (email)
+    @RequestMapping(value = "/{email}", method = RequestMethod.GET)
+    public List<Subscription> getUserSubscriptions(@PathVariable("email") String email) {
+        return subscriptionService.getUserSubscriptions(email);
+    }
+
     //POST create subscription
-    @PostMapping
+    @PostMapping(value = "/post")
     public void createSubscription(@RequestBody Subscription subscription) {
         subscriptionService.createSubscription(subscription);
     }
 
     //DELETE subscription
-    @RequestMapping(value = "/{email}/{product_name}}/{unit}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @Transactional
-    public void deleteSubscription(@PathVariable("email") String email, @PathVariable("product_name") String productName, @PathVariable("unit") String unit){
-    subscriptionService.deleteSubscription(email, productName, unit);
+    public void deleteSubscription(@PathVariable("id") Long id){
+    subscriptionService.deleteSubscription(id);
     }
 
 }
