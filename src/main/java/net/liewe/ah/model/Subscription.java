@@ -15,19 +15,12 @@ public class Subscription {
             strategy = GenerationType.SEQUENCE,
             generator = "subscription_sequence"
     )
-    @Column(name = "id")
     private Long id;
-    @Column(name = "email")
     private String email;
-    @Column(name = "product_name")
     private String productName;
-    @Column(name = "price")
     private Double price;
-    @Column(name = "unit")
     private String unit;
-    @Column(name = "discount")
     private String discount;
-    @Column(name = "image_url")
     private String imgUrl;
 
     public Subscription() {
