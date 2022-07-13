@@ -20,8 +20,8 @@ public class ProductController {
 
     //return all products in a List
     @GetMapping
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    public String getProducts() {
+        return "HI";
     }
 
     //return List for auto complete search from frontend

@@ -22,7 +22,7 @@ public class SubscriptionController {
 
     //return all subscriptions from db in a List
     @GetMapping
-    public List<Subscription> getProducts() {
+    public List<Subscription> getSubscriptions() {
         return subscriptionService.getSubscriptions();
     }
 

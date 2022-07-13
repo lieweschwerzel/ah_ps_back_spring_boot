@@ -15,13 +15,13 @@ public class ProductConfig {
     @Bean
     CommandLineRunner commandLineRunner(ProductRepository repository){
         return args -> {
-            Product dropje = new Product(
-                    "dropjes", 2.55, "300gr", "discounted", "www.imageurl"
+            Product ahKomkommer = new Product(
+                    "AH Komkommer", 0.55, "300gr", "discounted", "https://static.ah.nl/dam/product/AHI_434d50313535333334?revLabel=2&rendition=200x200_JPG_Q85&fileType=binary"
             );
-            Product melk = new Product(
-                    "melk", 0.55, "1L", "discounted", "www.imageurl"
-            );
-            //repository.saveAll(List.of(dropje, melk));
+//            Product melk = new Product(
+//                    "melk", 0.55, "1L", "discounted", "www.imageurl"
+//            );
+//            repository.saveAll(List.of(ahKomkommer));
         };
     }
 }
