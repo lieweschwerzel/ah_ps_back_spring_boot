@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository <Product, Long >      {
     //search for string, return 20 results max
     //@Query("select  from product product where product.product_name like %?1%")
-    List<Product> findAllByProductNameContainingIgnoreCase(String searchitem);
+    List<Product> findAllByProductNameContaining(String searchitem);
 
 
 }
