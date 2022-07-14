@@ -61,17 +61,23 @@ class ChromeTest {
             }
         }
         //collect data into Product model findElement(By.xpath("//*[contains(@id,'lst-ib')]"));
-        List<WebElement> productsElementsList = driver.findElements(By.xpath("//*[contains(@class,'link_root')]"));
+        List<WebElement> productsElementsList = driver.findElements(By.xpath("//a[contains(@class,'link_root')]"));
 
+        List<String> tmplist = new ArrayList<>();
         for (WebElement element : productsElementsList){
-            System.out.println(driver.findElement(By.xpath("div[dataclass-hook='price-amount']")));
+            //tmplist.add(element.findElement(By.cssSelector("div[contains(@class,'price-amount_root')]")).getText());
+            System.out.println(element.getText());
+            //System.out.println(element.findElement(By.xpath("//*[contains(@dataclass-hook,'price-amount')]")));
         }
 
 
 
 
         //button[@id='accept-cookies']
-        System.out.println("TITLE IS: "+ categoryList.toString());
+        for (String el: tmplist){
+            System.out.println("TITLE IS: "+  el);
+        }
+        System.out.println("TITLE IS: "+ productsElementsList.get(1).getText());
         //driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
