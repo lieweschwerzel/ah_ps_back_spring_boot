@@ -16,7 +16,7 @@ public class SubscriptionConfig {
         return args -> {
             Subscription sub_melk = new Subscription(
                     "liewe@", "melk", 1.2, "1Li", "discounted", "www.imageurl");
-            repository.saveAll(List.of(sub_melk));
+            //repository.saveAll(List.of(sub_melk));
         };
     }
 }
