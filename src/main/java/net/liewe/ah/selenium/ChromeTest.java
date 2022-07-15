@@ -50,23 +50,22 @@ class ChromeTest {
         driver.get(url); //"?page=26
 
         String cssSel = "span[class^='button-or-anchor_label']";
-
-        //      wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-//        while (true){
-//            try{
-//                WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
-//                System.out.println("TEXT"+nextButton.getText());
-//                if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
-//                    driver.findElement(By.cssSelector(cssSel)).click();
-//                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
-//                } else {
-//                    break;
-//                }
-//            }catch (org.openqa.selenium.NoSuchElementException e){
-//                break;
-//            }
-//        }
         //check for more pages, stop when no more "next page" found
+              //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        while (true){
+            try{
+                WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
+                System.out.println("TEXT"+nextButton.getText());
+                if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
+                    driver.findElement(By.cssSelector(cssSel)).click();
+                    //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
+                } else {
+                    break;
+                }
+            }catch (org.openqa.selenium.NoSuchElementException e){
+                break;
+            }
+        }
 
         List<WebElement> productsTitleUrl = driver.findElements(By.cssSelector("a[class='link_root__65rmW']"));
 
@@ -74,7 +73,14 @@ class ChromeTest {
         for (WebElement element : productsTitleUrl){
             String productName = element.getAttribute("title");
             String productUrl = element.getAttribute("href");
-            Double price = Double.valueOf(element.findElements(By.tagName("div")).get(3).getText());
+            String priceTmp = element.findElements(By.tagName("div")).get(3).getText();
+            Double price;
+            if (priceTmp.length() != 0){
+                price = Double.valueOf(priceTmp);
+            }else {
+                price = null;
+            }
+            
             String unit = element.findElements(By.tagName("span")).get(3).getText();
             String imgUrl = element.findElement(By.tagName("img")).getAttribute("src");
             String discount = null;
