@@ -12,6 +12,4 @@ public interface ProductRepository extends JpaRepository <Product, Long >      {
     //search for string, return 20 results max
     //@Query("select  from product product where product.product_name like %?1%")
     List<Product> findAllByProductNameContaining(String searchitem);
-
-
 }

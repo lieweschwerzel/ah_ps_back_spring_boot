@@ -23,4 +23,8 @@ public class ProductService {
     public List<Product> getSearchResult(String searchitem) {
         return productRepository.findAllByProductNameContaining(searchitem);
     }
+
+    public List<Product> addProducts(List<Product> productList){
+        return productRepository.saveAll(productList);
+    }
 }

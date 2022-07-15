@@ -21,18 +21,19 @@ public class Product {
     private String unit;
     private String discount;
     private String imgUrl;
+    private String productUrl;
 
     public Product() {
     }
 
-    public Product(String productName, Double price, String unit, String discount, String imgUrl) {
-        this.id = id;
+    public Product(String productName, Double price, String unit, String discount, String imgUrl, String productUrl) {
         this.productName = productName;
         this.price = price;
         this.unit = unit;
         this.discount = discount;
         this.imgUrl = imgUrl;
         this.unit = unit;
+        this.productUrl = productUrl;
     }
 
 
@@ -84,14 +85,23 @@ public class Product {
         this.imgUrl = imgUrl;
     }
 
+public String getProductUrl() {
+        return productUrl;
+    }
+
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
-                ", productName='" + productName + '\'' +
+                " productName='" + productName + '\'' +
                 ", price=" + price +
+                ", unit='" + unit + '\'' +
                 ", discount='" + discount + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
+                ", productUrl='" + productUrl + '\'' +
                 '}';
     }
 }

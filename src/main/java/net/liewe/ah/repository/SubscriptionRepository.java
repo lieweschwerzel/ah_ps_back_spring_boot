@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long > {
-    //@Query("SELECT s FROM Subscription s WHERE s.email = ?1 AND s.productName = ?1 AND s.unit = ?1")
+    //@Query("SELECT s FROM Subscription s WHERE s.email = ?1 AND s.productName = ?2 AND s.unit = ?3")
     Optional<Subscription> findSubscriptionByEmailAndProductNameAndUnit(String email, String productName, String unit);
 
     Optional<Subscription> findSubscriptionById(String id);

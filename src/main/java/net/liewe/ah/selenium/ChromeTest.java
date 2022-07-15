@@ -1,24 +1,23 @@
 package net.liewe.ah.selenium;
 
-import jdk.jfr.Category;
+import net.liewe.ah.model.Product;
+import net.liewe.ah.repository.ProductRepository;
+import org.hibernate.type.StringNVarcharType;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.swing.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 class ChromeTest {
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-
         //setting the driver executable
         System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
@@ -26,70 +25,84 @@ class ChromeTest {
         WebDriver driver=new ChromeDriver();
 
         //Applied wait time
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         //maximize window
 
         //open browser with desried URL
         driver.get("https://www.ah.nl/producten");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10, 1));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         //wait for cookies popup and accept
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
         //get Categories
-        List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class='taxonomy-card_titleLink__7TTrF']"));
+        List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class^='taxonomy-card_title']"));
         List<Category> categoryList = new ArrayList<>();
         for (WebElement element : catElementList){
             Category cat = new Category (element.getText(), element.getAttribute("href"));
             categoryList.add(cat);
         }
+        System.out.println(categoryList);
 
         //get Prods from Category
-        String url = categoryList.get(0).url;
-        driver.get(url);
+        String url = categoryList.get(1).url;
+        driver.get(url); //"?page=26
+
+        String cssSel = "span[class^='button-or-anchor_label']";
+
+        //      wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+//        while (true){
+//            try{
+//                WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
+//                System.out.println("TEXT"+nextButton.getText());
+//                if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
+//                    driver.findElement(By.cssSelector(cssSel)).click();
+//                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
+//                } else {
+//                    break;
+//                }
+//            }catch (org.openqa.selenium.NoSuchElementException e){
+//                break;
+//            }
+//        }
         //check for more pages, stop when no more "next page" found
-        String xpath = "//span[@class='button-or-anchor_label__2eIdb']";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        WebElement nextButton = driver.findElement(By.xpath(xpath));
-        while (true){
-            //nextButton = driver.findElement(By.xpath(xpath));
-            if (nextButton.getText() == "Meer resultaten" && nextButton.isDisplayed()) {
-                driver.findElement(By.xpath(xpath)).click();
-            } else {
-                break;
-            }
+
+        List<WebElement> productsTitleUrl = driver.findElements(By.cssSelector("a[class='link_root__65rmW']"));
+
+        List<Product> tmplist = new ArrayList<>();
+        for (WebElement element : productsTitleUrl){
+            String productName = element.getAttribute("title");
+            String productUrl = element.getAttribute("href");
+            Double price = Double.valueOf(element.findElements(By.tagName("div")).get(3).getText());
+            String unit = element.findElements(By.tagName("span")).get(3).getText();
+            String imgUrl = element.findElement(By.tagName("img")).getAttribute("src");
+            String discount = null;
+            try{
+                String dis1 = element.findElements(By.tagName("span")).get(4).getText();
+                if (dis1.length()!=0){
+                    discount = dis1;
+                    String dis2 = element.findElements(By.tagName("span")).get(5).getText();
+                    if (dis2.length() != 0){
+                        try{
+                            discount += " "+ dis2;
+                        }catch (IndexOutOfBoundsException ignored){}
+                    }
+                }
+            }catch (IndexOutOfBoundsException ignored){}
+            tmplist.add(new Product(productName, price, unit, discount, imgUrl, productUrl));
         }
-        //collect data into Product model findElement(By.xpath("//*[contains(@id,'lst-ib')]"));
-        List<WebElement> productsElementsList = driver.findElements(By.xpath("//a[contains(@class,'link_root')]"));
-
-        List<String> tmplist = new ArrayList<>();
-        for (WebElement element : productsElementsList){
-            //tmplist.add(element.findElement(By.cssSelector("div[contains(@class,'price-amount_root')]")).getText());
-            System.out.println(element.getText());
-            //System.out.println(element.findElement(By.xpath("//*[contains(@dataclass-hook,'price-amount')]")));
+        for (Product el: tmplist){
+            System.out.println( el );
         }
-
-
-
-
-        //button[@id='accept-cookies']
-        for (String el: tmplist){
-            System.out.println("TITLE IS: "+  el);
-        }
-        System.out.println("TITLE IS: "+ productsElementsList.get(1).getText());
-        //driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-
         //closing the browser
         driver.close();
 
     }
 
-    private static boolean existsElement(String xpath, WebDriver driver) {
+    private static boolean existsElement(String css, WebDriver driver) {
         try {
-            driver.findElement(By.xpath(xpath));
+            driver.findElement(By.cssSelector(css));
         } catch (NoSuchElementException e) {
             return false;
         }
