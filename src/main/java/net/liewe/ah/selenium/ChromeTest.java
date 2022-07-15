@@ -1,16 +1,12 @@
 package net.liewe.ah.selenium;
 
 import net.liewe.ah.model.Product;
-import net.liewe.ah.repository.ProductRepository;
-import org.hibernate.type.StringNVarcharType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -80,8 +76,19 @@ class ChromeTest {
             }else {
                 price = null;
             }
-            
-            String unit = element.findElements(By.tagName("span")).get(3).getText();
+            String unit = null;
+            try{
+                String unitTmp = element.findElements(By.tagName("span")).get(3).getText();
+                if (unitTmp.length() != 0){
+                    unit = unitTmp;
+                } else {
+                    unit = null;
+                };
+            }catch (IndexOutOfBoundsException ignored){
+
+            }
+
+
             String imgUrl = element.findElement(By.tagName("img")).getAttribute("src");
             String discount = null;
             try{
