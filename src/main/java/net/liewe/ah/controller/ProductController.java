@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RestController
 @RequestMapping(path = "/prods")
 public class ProductController {
@@ -25,6 +25,7 @@ public class ProductController {
     }
 
     //return List for auto complete search from frontend
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/search/{searchitem}", method = RequestMethod.GET)
     public List<Product> getSearchResult(@PathVariable("searchitem") String searchitem) {
         return productService.getSearchResult(searchitem);

@@ -15,13 +15,14 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-//        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
-        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
-        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
+        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
         options.setBinary("/app/.apt/usr/bin/google-chrome");
         options.addArguments("--headless");
+        options.addArguments("window-size=1920x1080");
         options.addArguments("--enable-javascript");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
@@ -59,7 +60,13 @@ public class PriceScraper {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
+
+//        System.out.println(driver.findElements(By.tagName("a")).get(0).getText());
+//        System.out.println(driver.findElements(By.tagName("a")).get(1).getText());
+//        System.out.println(driver.findElements(By.tagName("a")).get(2).getText());
         String cssSel = "span[class^='button-or-anchor_label']";
+        String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
+        System.out.println(buttontxt);
         //check for more pages, stop when no more "next page" found
               //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         while (true){
@@ -68,7 +75,7 @@ public class PriceScraper {
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
                     driver.findElement(By.cssSelector(cssSel)).click();
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
+                    //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
                 } else {
                     break;
                 }
