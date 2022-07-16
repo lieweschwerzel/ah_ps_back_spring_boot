@@ -21,8 +21,8 @@ public class PriceScraper {
 
         ChromeOptions options = new ChromeOptions();
         options.setBinary("/app/.apt/usr/bin/google-chrome");
-        options.addArguments("--enable-javascript");
         options.addArguments("--headless");
+        options.addArguments("--enable-javascript");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
 
@@ -32,14 +32,14 @@ public class PriceScraper {
         //Applied wait time
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         //maximize window
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
         //open browser with desired URL
         driver.get("https://www.ah.nl/producten");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         //wait for cookies popup and accept
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
 //        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
 
@@ -62,13 +62,13 @@ public class PriceScraper {
         String cssSel = "span[class^='button-or-anchor_label']";
         //check for more pages, stop when no more "next page" found
               //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
         while (true){
             try{
                 WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
                     driver.findElement(By.cssSelector(cssSel)).click();
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
                 } else {
                     break;
                 }
