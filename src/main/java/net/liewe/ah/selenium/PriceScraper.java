@@ -18,18 +18,18 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
-//        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
-//        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-//        options.setBinary("/app/.apt/usr/bin/google-chrome");
-//        options.addArguments("--headless");
-//        options.addArguments("--window-size=1920x1080");
-//        options.addArguments("--disable-dev-shm-usage");
-//        options.addArguments("--enable-javascript");
-//        options.addArguments("--disable-gpu");
-//        options.addArguments("--no-sandbox");
+        options.setBinary("/app/.apt/usr/bin/google-chrome");
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1920x1080");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--enable-javascript");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
 
         //Initiating your chromedriver
         WebDriver driver = new ChromeDriver(options);
@@ -42,8 +42,8 @@ public class PriceScraper {
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         //wait for cookies popup and accept
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
         //get Categories
         List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class^='taxonomy-card_title']"));
@@ -65,7 +65,9 @@ public class PriceScraper {
 //        System.out.println(driver.findElements(By.tagName("a")).get(0).getText());
 //        System.out.println(driver.findElements(By.tagName("a")).get(1).getText());
 //        System.out.println(driver.findElements(By.tagName("a")).get(2).getText());
-        String cssSel = "//button[@type='button'][@aria-label='toon meer resultaten']\"))";
+//        String xpath= "//button[@type='button'][@aria-label='toon meer resultaten']\"))";
+
+        String cssSel = "span[class='button-or-anchor_label__2eIdb']";
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(cssSel)));
         String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
         System.out.println(buttontxt);
