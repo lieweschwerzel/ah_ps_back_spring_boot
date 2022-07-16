@@ -36,7 +36,6 @@ public class PriceScraper {
 
         //open browser with desired URL
         driver.navigate().to("https://www.ah.nl/producten");
-        System.out.println(driver.getPageSource());
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         driver.manage().window().setSize(new Dimension(1920,1080));
@@ -56,8 +55,10 @@ public class PriceScraper {
         String url = categoryList.get(1).url;
         driver.navigate().to(url); //"?page=26
         System.out.println("printin"+ driver.getCurrentUrl());
+        System.out.println(driver.getPageSource());
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
         driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
