@@ -43,7 +43,7 @@ public class PriceScraper {
         //wait for cookies popup and accept
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
 //        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[class^='taxonomy-card_title']"));
         //get Categories
         List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class^='taxonomy-card_title']"));
         List<Category> categoryList = new ArrayList<>();
