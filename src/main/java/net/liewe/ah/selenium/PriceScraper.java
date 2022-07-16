@@ -55,7 +55,7 @@ public class PriceScraper {
         String url = categoryList.get(1).url;
         driver.navigate().to(url); //"?page=26
         System.out.println("printin"+ driver.getCurrentUrl());
-        System.out.println(driver.getPageSource());
+        //  System.out.println(driver.getPageSource());
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
         driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
