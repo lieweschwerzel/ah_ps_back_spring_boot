@@ -9,6 +9,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(path = "/prods")
 public class ProductController {
     private final ProductService productService;
