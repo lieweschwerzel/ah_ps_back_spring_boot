@@ -60,13 +60,13 @@ public class PriceScraper {
         String cssSel = "span[class^='button-or-anchor_label']";
         //check for more pages, stop when no more "next page" found
               //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
         while (true){
             try{
                 WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
                     driver.findElement(By.cssSelector(cssSel)).click();
-                    //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
                 } else {
                     break;
                 }
