@@ -6,14 +6,16 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-class ChromeTest {
-    public static void main(String[] args) {
+public class PriceScraper {
+
+    public static List<Product> getAllProducts() {
         //setting the driver executable
         System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
@@ -24,13 +26,13 @@ class ChromeTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         //maximize window
 
-        //open browser with desried URL
+        //open browser with desired URL
         driver.get("https://www.ah.nl/producten");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 
         //wait for cookies popup and accept
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
         //get Categories
         List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class^='taxonomy-card_title']"));
@@ -51,7 +53,7 @@ class ChromeTest {
         while (true){
             try{
                 WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
-                System.out.println("TEXT"+nextButton.getText());
+                System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
                     driver.findElement(By.cssSelector(cssSel)).click();
                     //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
@@ -64,7 +66,7 @@ class ChromeTest {
         }
 
         List<WebElement> productsTitleUrl = driver.findElements(By.cssSelector("a[class='link_root__65rmW']"));
-
+        System.out.println("Start extracting data:");
         List<Product> tmplist = new ArrayList<>();
         for (WebElement element : productsTitleUrl){
             String productName = element.getAttribute("title");
@@ -105,12 +107,11 @@ class ChromeTest {
             }catch (IndexOutOfBoundsException ignored){}
             tmplist.add(new Product(productName, price, unit, discount, imgUrl, productUrl));
         }
-        for (Product el: tmplist){
-            System.out.println( el );
-        }
+        System.out.println("Finished extracting data");
+
         //closing the browser
         driver.close();
-
+        return tmplist;
     }
 
     private static boolean existsElement(String css, WebDriver driver) {
