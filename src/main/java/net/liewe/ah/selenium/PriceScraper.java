@@ -41,8 +41,7 @@ public class PriceScraper {
 
         driver.manage().window().setSize(new Dimension(1920,1080));
         //wait for cookies popup and accept
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+
 
         //get Categories
         List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class^='taxonomy-card_title']"));
@@ -57,7 +56,8 @@ public class PriceScraper {
         String url = categoryList.get(1).url;
         driver.navigate().to(url); //"?page=26
         System.out.println("printin"+ driver.getCurrentUrl());
-
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
