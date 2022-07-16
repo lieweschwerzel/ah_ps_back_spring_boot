@@ -39,7 +39,7 @@ public class PriceScraper {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         //open browser with desired URL
-        driver.get("https://www.ah.nl/producten");
+        driver.navigate().to("https://www.ah.nl/producten");
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         //wait for cookies popup and accept
