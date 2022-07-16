@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     //return List for auto complete search from frontend
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://ah-ps-spring-boot.herokuapp.com/")
     @RequestMapping(value = "/search/{searchitem}", method = RequestMethod.GET)
     public List<Product> getSearchResult(@PathVariable("searchitem") String searchitem) {
         return productService.getSearchResult(searchitem);
