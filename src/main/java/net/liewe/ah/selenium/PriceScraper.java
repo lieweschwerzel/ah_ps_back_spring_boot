@@ -38,8 +38,8 @@ public class PriceScraper {
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         //wait for cookies popup and accept
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
 
         //get Categories
