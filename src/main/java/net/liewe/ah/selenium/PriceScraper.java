@@ -21,8 +21,9 @@ public class PriceScraper {
 //        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
 //        options.setBinary("/app/.apt/usr/bin/google-chrome");
-        options.addArguments("--headless");
+        options.addArguments("--start-maximized");
         options.addArguments("--window-size=1920x1080");
+        options.addArguments("--headless");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--enable-javascript");
         options.addArguments("--disable-gpu");
