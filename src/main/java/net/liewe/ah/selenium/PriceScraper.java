@@ -15,12 +15,12 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-//        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
-        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
-        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+//        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+//        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/app/.apt/usr/bin/google-chrome");
+//        options.setBinary("/app/.apt/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--window-size=1920x1080");
         options.addArguments("--disable-dev-shm-usage");
@@ -40,8 +40,8 @@ public class PriceScraper {
 
         driver.manage().window().setSize(new Dimension(1920,1080));
         //wait for cookies popup and accept
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
         //get Categories
         List<WebElement> catElementList = driver.findElements(By.cssSelector("a[class^='taxonomy-card_title']"));
@@ -57,8 +57,8 @@ public class PriceScraper {
         driver.navigate().to(url); //"?page=26
         System.out.println("printin"+ driver.getCurrentUrl());
 
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
 
 //        System.out.println(driver.findElements(By.tagName("a")).get(0).getText());
