@@ -15,11 +15,11 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-        //System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+//        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
-        ChromeOptions options = new ChromeOptions();
-        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
         System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+        ChromeOptions options = new ChromeOptions();
         options.setBinary("/app/.apt/usr/bin/google-chrome");
         options.addArguments("--headless");
         options.addArguments("--window-size=1920x1080");
@@ -32,16 +32,14 @@ public class PriceScraper {
 
         //Applied wait time
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        //maximize window
-        //driver.manage().window().maximize();
 
         //open browser with desired URL
         driver.get("https://www.ah.nl/producten");
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         //wait for cookies popup and accept
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
 
         //get Categories
@@ -57,8 +55,8 @@ public class PriceScraper {
         String url = categoryList.get(1).url;
         driver.get(url); //"?page=26
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 
 
 //        System.out.println(driver.findElements(By.tagName("a")).get(0).getText());
