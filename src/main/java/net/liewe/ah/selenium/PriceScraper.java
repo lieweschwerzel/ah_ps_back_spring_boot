@@ -30,6 +30,7 @@ public class PriceScraper {
         options.addArguments("--enable-javascript");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
+        options.addArguments("--blink-settings=imagesEnabled=false");
 
         //Initiating your chromedriver
         WebDriver driver = new ChromeDriver(options);
