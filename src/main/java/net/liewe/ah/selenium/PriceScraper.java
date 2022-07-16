@@ -65,18 +65,18 @@ public class PriceScraper {
 //        System.out.println(driver.findElements(By.tagName("a")).get(0).getText());
 //        System.out.println(driver.findElements(By.tagName("a")).get(1).getText());
 //        System.out.println(driver.findElements(By.tagName("a")).get(2).getText());
-        String xpath = "//*[@id=\"start-of-content\"]/div[3]/button";
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-        String buttontxt = driver.findElement(By.cssSelector(xpath)).getText();
+        String cssSel = "div.container_root__1W5lx.search-wrapper_root__32qAg:nth-child(3) div.search-wrapper_main__3YcHC div.load-more_root__9MiHC button.button-or-anchor_root__3z4hb.button-default_root__2DBX1.button-default_primary__R4c6W > span.button-or-anchor_label__2eIdb";
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(cssSel)));
+        String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
         System.out.println(buttontxt);
         //check for more pages, stop when no more "next page" found
               //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         while (true){
             try{
-                WebElement nextButton = driver.findElement(By.xpath(xpath));
+                WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
-                    driver.findElement(By.xpath(xpath)).click();
+                    driver.findElement(By.cssSelector(cssSel)).click();
                     //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
                 } else {
                     break;
