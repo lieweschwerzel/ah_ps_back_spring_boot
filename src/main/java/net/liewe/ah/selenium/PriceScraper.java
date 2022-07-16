@@ -22,7 +22,7 @@ public class PriceScraper {
         System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
         options.setBinary("/app/.apt/usr/bin/google-chrome");
         options.addArguments("--headless");
-        options.addArguments("window-size=1920x1080");
+        options.addArguments("--window-size=1920x1080");
         options.addArguments("--enable-javascript");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
