@@ -1,10 +1,7 @@
 package net.liewe.ah.selenium;
 
 import net.liewe.ah.model.Product;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,14 +31,14 @@ public class PriceScraper {
 
         //Initiating your chromedriver
         WebDriver driver = new ChromeDriver(options);
-
         //Applied wait time
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         //open browser with desired URL
         driver.navigate().to("https://www.ah.nl/producten");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
+        driver.manage().window().setSize(new Dimension(1920,1080));
         //wait for cookies popup and accept
 //        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
 //        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
