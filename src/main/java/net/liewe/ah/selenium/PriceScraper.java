@@ -58,6 +58,7 @@ public class PriceScraper {
         //get Prods from Category
         String url = categoryList.get(1).url;
         driver.navigate().to(url); //"?page=26
+        System.out.println("printin"+ driver.getCurrentUrl());
 
 //        JavascriptExecutor js = (JavascriptExecutor) driver;
 //        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -69,7 +70,7 @@ public class PriceScraper {
 //        String xpath= "//button[@type='button'][@aria-label='toon meer resultaten']\"))";
 
         String cssSel = "span[class='button-or-anchor_label__2eIdb']";
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(cssSel)));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
         String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
         System.out.println(buttontxt);
         //check for more pages, stop when no more "next page" found
