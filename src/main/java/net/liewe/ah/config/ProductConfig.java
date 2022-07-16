@@ -31,6 +31,8 @@ public class ProductConfig {
 //            );
             repository.saveAll(productList);
             System.out.println("Stored in DB!");
+
+            productList.clear();
         };
     }
 }
