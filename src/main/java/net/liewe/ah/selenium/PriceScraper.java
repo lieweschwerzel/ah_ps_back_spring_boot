@@ -15,7 +15,7 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
         System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
