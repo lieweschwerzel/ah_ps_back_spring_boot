@@ -80,7 +80,7 @@ public class PriceScraper {
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
                     driver.findElement(By.cssSelector(cssSel)).click();
-                    //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
                 } else {
                     break;
                 }
@@ -89,6 +89,7 @@ public class PriceScraper {
             }
         }
 
+        //extract data
         List<WebElement> productsTitleUrl = driver.findElements(By.cssSelector("a[class='link_root__65rmW']"));
         System.out.println("Start extracting data:");
         List<Product> tmplist = new ArrayList<>();
