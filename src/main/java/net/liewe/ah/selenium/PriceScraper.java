@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,10 +18,19 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+
+        ChromeOptions options = new ChromeOptions();
+        options.setBinary("/app/.apt/usr/bin/google-chrome");
+        options.addArguments("--enable-javascript");
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
 
         //Initiating your chromedriver
-        WebDriver driver=new ChromeDriver();
+        WebDriver driver = new ChromeDriver(options);
 
         //Applied wait time
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
