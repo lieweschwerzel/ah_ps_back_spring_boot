@@ -36,7 +36,7 @@ public class PriceScraper {
 
         //open browser with desired URL
         driver.navigate().to("https://www.ah.nl/producten");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        System.out.println(driver.getPageSource());
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
         driver.manage().window().setSize(new Dimension(1920,1080));
