@@ -56,7 +56,7 @@ public class PriceScraper {
 
         //get Prods from Category
         String url = categoryList.get(1).url;
-        driver.get(url); //"?page=26
+        driver.navigate().to(url); //"?page=26
 
 //        JavascriptExecutor js = (JavascriptExecutor) driver;
 //        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -65,18 +65,18 @@ public class PriceScraper {
 //        System.out.println(driver.findElements(By.tagName("a")).get(0).getText());
 //        System.out.println(driver.findElements(By.tagName("a")).get(1).getText());
 //        System.out.println(driver.findElements(By.tagName("a")).get(2).getText());
-        String cssSel = "span[class^='button-or-anchor_label']";
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(cssSel)));
-        String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
+        String xpath = "//*[@id=\"start-of-content\"]/div[3]/button";
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        String buttontxt = driver.findElement(By.cssSelector(xpath)).getText();
         System.out.println(buttontxt);
         //check for more pages, stop when no more "next page" found
               //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         while (true){
             try{
-                WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
+                WebElement nextButton = driver.findElement(By.xpath(xpath));
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
-                    driver.findElement(By.cssSelector(cssSel)).click();
+                    driver.findElement(By.xpath(xpath)).click();
                     //wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
                 } else {
                     break;
