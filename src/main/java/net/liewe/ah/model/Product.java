@@ -2,19 +2,9 @@ package net.liewe.ah.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table
+
 public class Product {
-    @Id
-    @SequenceGenerator(
-            name = "product_sequence",
-            sequenceName = "product_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "product_sequence"
-    )
+
     private Long id;
     private String productName;
     private Double price;
