@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*" , maxAge = 3600)
 @RestController
 @RequestMapping(path = "/subs")
 public class SubscriptionController {

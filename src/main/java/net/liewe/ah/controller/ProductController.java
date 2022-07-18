@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 @RequestMapping(path = "/prods")
 public class ProductController {
     private final ProductService productService;
@@ -26,7 +26,6 @@ public class ProductController {
     }
 
     //return List for auto complete search from frontend
-    @CrossOrigin(origins = "https://ah-ps-spring-boot.herokuapp.com/")
     @RequestMapping(value = "/search/{searchitem}", method = RequestMethod.GET)
     public List<Product> getSearchResult(@PathVariable("searchitem") String searchitem) {
         return productService.getSearchResult(searchitem);
