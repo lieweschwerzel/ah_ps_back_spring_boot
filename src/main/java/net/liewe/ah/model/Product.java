@@ -1,23 +1,16 @@
 package net.liewe.ah.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
+@IdClass(Product.class)
 @Table
-public class Product {
+public class Product implements Serializable {
     @Id
-    @SequenceGenerator(
-            name = "product_sequence",
-            sequenceName = "product_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "product_sequence"
-    )
-    private Long id;
     private String productName;
     private Double price;
+    @Id
     private String unit;
     private String discount;
     private String imgUrl;
@@ -36,14 +29,6 @@ public class Product {
         this.productUrl = productUrl;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getProductName() {
         return productName;

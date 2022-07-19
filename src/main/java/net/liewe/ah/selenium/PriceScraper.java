@@ -15,20 +15,20 @@ public class PriceScraper {
 
     public static List<Product> getAllProducts() {
         //setting the driver executable
-//        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 
-        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
-        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
+//        System.setProperty("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/google-chrome");
+//        System.setProperty("CHROMEDRIVER_PATH", "/app/.chromedriver/bin/chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("/app/.apt/usr/bin/google-chrome");
-        options.addArguments("--start-maximized");
-        options.addArguments("--window-size=1920x1080");
-        options.addArguments("--headless");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--enable-javascript");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--blink-settings=imagesEnabled=false");
+//        options.setBinary("/app/.apt/usr/bin/google-chrome");
+//        options.addArguments("--start-maximized");
+//        options.addArguments("--window-size=1920x1080");
+//        options.addArguments("--headless");
+//        options.addArguments("--disable-dev-shm-usage");
+//        options.addArguments("--enable-javascript");
+//        options.addArguments("--disable-gpu");
+//        options.addArguments("--no-sandbox");
+//        options.addArguments("--blink-settings=imagesEnabled=false");
 
         //Initiating your chromedriver
         WebDriver driver = new ChromeDriver(options);
@@ -38,8 +38,11 @@ public class PriceScraper {
         driver.navigate().to("https://www.ah.nl/producten");
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
 
-        driver.manage().window().setSize(new Dimension(1920,1080));
+        //driver.manage().window().setSize(new Dimension(1920,1080));
         //wait for cookies popup and accept
+        //  System.out.println(driver.getPageSource());
+//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
+//        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
 
         //get Categories
@@ -55,9 +58,6 @@ public class PriceScraper {
         String url = categoryList.get(1).url;
         driver.navigate().to(url+"?page=26"); //"
         System.out.println("printin"+ driver.getCurrentUrl());
-        //  System.out.println(driver.getPageSource());
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"accept-cookies\"]")));
-        driver.findElement(By.xpath("//*[@id=\"accept-cookies\"]")).click();
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -69,13 +69,17 @@ public class PriceScraper {
 //        String xpath= "//button[@type='button'][@aria-label='toon meer resultaten']\"))";
 
         String cssSel = "span[class='button-or-anchor_label__2eIdb']";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
-        String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
-        System.out.println(buttontxt);
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSel)));
+        }catch (org.openqa.selenium.TimeoutException te){}
+
+
         //check for more pages, stop when no more "next page" found
               //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         while (true){
             try{
+                String buttontxt = driver.findElement(By.cssSelector(cssSel)).getText();
+                System.out.println(buttontxt);
                 WebElement nextButton = driver.findElement(By.cssSelector(cssSel));
                 System.out.println("Click op knop: "+nextButton.getText());
                 if (nextButton.getText().equals("Meer resultaten") && nextButton.isDisplayed()) {
@@ -117,7 +121,7 @@ public class PriceScraper {
 
 
             String imgUrl = element.findElement(By.tagName("img")).getAttribute("src");
-            String discount = null;
+            String discount = "";
             try{
                 String dis1 = element.findElements(By.tagName("span")).get(4).getText();
                 if (dis1.length()!=0){
